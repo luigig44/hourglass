@@ -3,6 +3,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     gap: 0;
+    height: 100vh;
 }
 
 .ui {
@@ -20,6 +21,7 @@
     opacity: 75%;
     background-color: #ffffff;
     font-family: Ubuntu;
+    height: 100vh;
 }
   
 .timer {
@@ -31,6 +33,7 @@ grid-auto-flow: row;
 grid-template-areas:
     "minutes seconds";
 grid-area: timer;
+
 }
 
 .minutes { grid-area: minutes; }
@@ -59,6 +62,7 @@ grid-area: buttons;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
 }
 body {font-size: 10rem;}
 button {font-size: 5rem;}
