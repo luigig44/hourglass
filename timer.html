@@ -10,9 +10,12 @@
     <div class="seconds" id="s"></div>
   </div>
   <div class="buttons">
-    <button class="button-1" onClick="resetTimer()">xx</button>
-    <button class="button-2" onClick="startHourglass()">Iniciar</button>
-    <button class="button-3" onClick="turnHourglass()">Dar vuelta</button>
+    <button class="button-1 stopped" onClick="editTime()">Editar</button>
+    <button class="button-2 stopped" onClick="startHourglass()">Iniciar</button>
+    <button class="button-3 stopped" onClick="openInfo()">+ Info</button>
+    <button class="button-1 running" onClick="turnHourglass()">Dar vuelta</button>
+    <button class="button-2 running" onClick="pauseHourglass()">Pausar</button>
+    <button class="button-3 running" onClick="resetHourglass()">Reiniciar</button>
   </div>
 
 <svg width="225px" height="320px">

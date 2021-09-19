@@ -25,3 +25,8 @@ function startHourglass() {
     }
   }, 125);
 };
+
+function editTime() {alert("TODO");};
+function openInfo() {alert("TODO");};
+function pauseHourglass() {alert("TODO");};
+function resetHourglass() {alert("TODO");};
