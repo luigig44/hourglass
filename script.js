@@ -1,19 +1,20 @@
-var time = 10000;
+var time = 3 * 60000;
 var audio = new Audio('alarm.mp3');
-var rem, updater;
+var rem = time;
+var updater;
 
 const buttonSets = {
   "editing":' \
-<button class="button-1" onClick="turnHourglass()" disabled>disabled</button> \
-<button class="button-2" onClick="stopEdit()">Aplicar</button> \
-<button class="button-3" onClick="resetHourglass()" disabled>disabled</button>',
+  <button class="button-1" onClick="startHourglass()" disabled>Iniciar</button> \
+  <button class="button-2" onClick="stopEdit()">Aplicar edición</button> \
+  <button class="button-3" onClick="openInfo()" disabled>+ Info</button>',
   "running":' \
-  <button class="button-1" onClick="turnHourglass()">Dar vuelta</button> \
-  <button class="button-2" onClick="pauseHourglass()">Pausar</button> \
-  <button class="button-3" onClick="resetHourglass()">Reiniciar</button>',
+  <button class="button-1" onClick="pauseHourglass()">Pausar</button> \
+  <button class="button-2" onClick="turnHourglass()">Dar vuelta</button> \
+  <button class="button-3" onClick="openInfo()">+ Info</button>',
   "waiting":' \
-  <button class="button-1" onClick="startEdit()">Editar</button> \
-  <button class="button-2" onClick="startHourglass()">Iniciar</button> \
+  <button class="button-1" onClick="startHourglass()">Iniciar</button> \
+  <button class="button-2" onClick="startEdit()">Editar</button> \
   <button class="button-3" onClick="openInfo()">+ Info</button>'
 }
 
@@ -29,7 +30,6 @@ function turnHourglass() {
 
 function startHourglass() {
   document.getElementById("buttons").innerHTML = buttonSets["running"];
-
   updater = setInterval(function() {
     rem -= 100;
     updateClock();
@@ -53,19 +53,19 @@ function stopEdit() {
   }
   document.getElementById("m").setAttribute("contenteditable", "false");
   document.getElementById("s").setAttribute("contenteditable", "false");
-  setup();
+  document.getElementById("buttons").innerHTML = buttonSets["waiting"];
+  rem = time;
+  updateClock();
 }
 
 function openInfo() {
   document.location = "google.com";
 };
-function pauseHourglass() {alert("TODO");};
-function resetHourglass() {alert("TODO");};
 
-function setup() {
+function pauseHourglass() {
+  clearInterval(updater);
   document.getElementById("buttons").innerHTML = buttonSets["waiting"];
-  rem = time;
-  updateClock();
 };
 
-setup();
+document.getElementById("buttons").innerHTML = buttonSets["waiting"];
+updateClock();
