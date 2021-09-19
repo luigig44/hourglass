@@ -3,6 +3,14 @@ var rem = time;
 var audio = new Audio('alarm.mp3');
 var updater;
 
+function updateClock() {
+  document.getElementById("m").innerHTML = Math.floor(rem/60000) + "m ";
+  document.getElementById("s").innerHTML = ((rem%60000)/1000).toFixed(1) + "s ";
+  document.getElementById("sandInner").setAttribute("y",String(-110+110*(rem/time)));
+}
+
+updateClock();
+
 function turnHourglass() {
   rem = time-rem;
 };
@@ -14,20 +22,10 @@ function startHourglass() {
   <button class="button-3" onClick="resetHourglass()">Reiniciar</button>';
 
   updater = setInterval(function() {
-    rem -=100;
-  
-    document.getElementById("m").innerHTML = Math.floor(rem/60000) + "m ";
-    document.getElementById("s").innerHTML = ((rem%60000)/1000).toFixed(1) + "s ";
-    document.getElementById("sandInner").setAttribute("y",String(-110+110*(rem/time)));
-    
-    if (rem == 6300) {
-      audio.play();
-    }
-    
-    if (rem < 0) {
-      clearInterval(updater);
-      
-    }
+    rem -= 100;
+    updateClock();
+    if (rem == 6300) audio.play();
+    if (rem < 0) clearInterval(updater);
   }, 100);
 };
 
