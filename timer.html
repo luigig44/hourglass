@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+  <style>
+  .container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.2em;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "timer"
+    "buttons";
+}
+
+.timer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0.2em;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "minutes seconds";
+  grid-area: timer;
+}
+
+.minutes { grid-area: minutes; }
+
+.seconds { grid-area: seconds; }
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0.2em;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "button1 button2 button3";
+  grid-area: buttons;
+}
+
+.button1 { grid-area: button1; }
+
+.button2 { grid-area: button2; }
+
+.button3 { grid-area: button3; }
+
+    body {font-size: 5rem;}
+    #s { text-align: left; }
+    #m { text-align: right; }
+  </style>
+</head>
+
+
+
+
+<body class="container">
+<!--  <div class="row" id="timer">
+      <div class="col-6" id="m"></div>
+      <div class="col-6" id="s"></div>
+    <button class="col-12" onClick="resetTimer()">Dar vuelta</button>
+  </div>-->
+
+  <div class="timer">
+    <div class="minutes" id="m"></div>
+    <div class="seconds" id="s"></div>
+  </div>
+  <div class="buttons">
+    <button class="button-1" onClick="resetTimer()">Dar vuelta</button>
+    <button class="button-2" onClick="resetTimer()">Dar vuelta</button>
+    <button class="button-3" onClick="resetTimer()">Dar vuelta</button>
+  </div>
+
+
+
+  
+<!--<svg width="225px" height="320px">-->
+<svg width="225px" height="320px">
+  <defs>
+      <path d="m112.5,309 l -346,200 l 692,0 z" id="sandRaw"/>
+  </defs>
+  <style>
+  #hourglassOuter { fill:none;
+                    stroke:black;
+                    stroke-width:20px;}
+  #hourglassInner { fill:blue;
+                    stroke-width:0;}
+  #sand { fill:sandybrown;
+          stroke-width:0;}
+  </style>
+  <g id="hourglass">
+    <path d="M10,5
+               l0,5 
+             c 0,120 100,90 100,150
+             c 0,60 -100,30 -100,150
+               l0,5
+             l 205,0
+               l0,-5
+             c 0,-120 -100,-90 -100,-150
+             c 0,-60 100,-30 100,-150
+               l0,-5
+             z"
+          id="hourglassOuter"
+          />
+    <path d="M10,10
+             c 0,120 100,90 100,150
+             c 0,60 -100,30 -100,150
+             l 205,0
+             c 0,-120 -100,-90 -100,-150
+             c 0,-60 100,-30 100,-150
+             z"
+          id="hourglassInner"
+          />
+  </g> <!-- #hourglass -->
+
+
+  <clipPath id="sandClip">
+    <use href="#hourglassInner"/>
+  </clipPath> <!-- #sandClip -->
+
+  <g id="sand" clip-path="url(#sandClip)">
+    <use href="#sandRaw" id="sandInner"/>
+  <g/> <!-- #sand -->
+</svg>
+
+<script>
+const TIME = 10;
+var rem = TIME;
+var audio = new Audio('alarm.mp3');
+
+var x = setInterval(function() {
+  rem -=0.125;
+
+  document.getElementById("m").innerHTML = Math.floor(rem/60) + "m ";
+  document.getElementById("s").innerHTML = rem%60 + "s ";
+  document.getElementById("sandInner").setAttribute("y",String(-110+110*(rem/TIME)));
+  
+  if (rem == 6.375) {
+    audio.play();
+  }
+  
+  if (rem < 0) {
+    clearInterval(x);
+    document.getElementById("timer").innerHTML = "Terminó";
+  }
+}, 125);
+
+function resetTimer() {
+  rem = TIME-rem;
+};
+</script>
+
+</body>
+</html>
