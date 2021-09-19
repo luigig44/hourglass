@@ -47,7 +47,7 @@ function startEdit() {
 function stopEdit() {
   time =  parseFloat(document.getElementById("m").innerText) * 60000 +
           parseFloat(document.getElementById("s").innerText) * 1000;
-  if (time == NaN) {
+  if (time == NaN || time<100) {
     alert("Ingrese un tiempo válido");
     return;
   }
