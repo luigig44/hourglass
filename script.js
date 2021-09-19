@@ -5,17 +5,17 @@ var updater;
 
 const buttonSets = {
   "editing":' \
-  <button class="button-1" onClick="startHourglass()" disabled>Iniciar</button> \
-  <button class="button-2" onClick="stopEdit()">Aplicar edición</button> \
-  <button class="button-3" onClick="openInfo()" disabled>+ Info</button>',
+  <button class="button-1" onClick="startHourglass()" disabled><i class="icon-play"></i></button> \
+  <button class="button-2" onClick="stopEdit()"><i class="icon-check"></i></button> \
+  <button class="button-3" onClick="openInfo()" disabled><i class="icon-info"></i></button>',
   "running":' \
-  <button class="button-1" onClick="pauseHourglass()">Pausar</button> \
-  <button class="button-2" onClick="turnHourglass()">Dar vuelta</button> \
-  <button class="button-3" onClick="openInfo()">+ Info</button>',
+  <button class="button-1" onClick="pauseHourglass()"><i class="icon-pause"></i></button> \
+  <button class="button-2" onClick="turnHourglass()"><i class="icon-repeat"></i></button> \
+  <button class="button-3" onClick="openInfo()"><i class="icon-info"></i></button>',
   "waiting":' \
-  <button class="button-1" onClick="startHourglass()">Iniciar</button> \
-  <button class="button-2" onClick="startEdit()">Editar</button> \
-  <button class="button-3" onClick="openInfo()">+ Info</button>'
+  <button class="button-1" onClick="startHourglass()"><i class="icon-play"></i></button> \
+  <button class="button-2" onClick="startEdit()"><i class="icon-edit"></i></button> \
+  <button class="button-3" onClick="openInfo()"><i class="icon-info"></i></button>'
 }
 
 function updateClock() {
