@@ -1,6 +1,7 @@
 var time = 3 * 60000;
 var alarm = new Audio('alarm.mp3');
 var ticking = new Audio('ticking.mp3');
+ticking.loop = true;
 var rem, updater;
 
 const buttonSets = {
@@ -30,7 +31,12 @@ function updateClock() {
 
 function turnHourglass() {
   rem = time-rem;
-  if (rem < (Math.floor(time/100)*10)) {ticking.play();}
+  if (rem < (Math.floor(time/100)*10)) {
+    ticking.play();
+  } else {
+    ticking.pause();
+    ticking.currentTime = 0.4;
+  }
 };
 
 function startHourglass() {
@@ -43,6 +49,7 @@ function startHourglass() {
       clearInterval(updater);
       ticking.pause();
       alarm.play();
+      navigator.vibrate(200);
       document.getElementById("buttons").innerHTML = buttonSets["ended"];
     }
   }, 100);
@@ -57,7 +64,8 @@ function startEdit() {
 function stopEdit() {
   time =  parseFloat(document.getElementById("m").innerText) * 60000 +
           parseFloat(document.getElementById("s").innerText) * 1000;
-  if (time == NaN || time<100) {
+          console.log(time);
+  if (isNaN(time) || time<100) {
     alert("Ingrese un tiempo válido");
     return;
   }
