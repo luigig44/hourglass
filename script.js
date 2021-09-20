@@ -86,7 +86,7 @@ function stopEdit() {
 }
 
 function openInfo() {
-  document.location = "google.com";
+  document.location = "http://luigi.finetti.com.ar";
 };
 
 function pauseHourglass() {
