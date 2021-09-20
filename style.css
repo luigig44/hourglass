@@ -27,18 +27,20 @@
 .timer {
 display: grid;
 grid-template-columns: 1fr 1fr;
-grid-template-rows: 1fr;
+grid-template-rows: 1fr 0.5fr;
 gap: 0.2em;
 grid-auto-flow: row;
 grid-template-areas:
-    "minutes seconds";
+    "m s"
+    "timeM timeS";
 grid-area: timer;
-
 }
-
-.minutes { grid-area: minutes; }
-
-.seconds { grid-area: seconds; }
+.seconds { text-align: left; }
+.minutes { text-align: right; }
+#m { grid-area: m; font-size: 10rem;}
+#s { grid-area: s; font-size: 10rem;}
+#timeM { grid-area: timeM; font-size: 5rem;}
+#timeS { grid-area: timeS; font-size: 5rem;}
 
 .buttons {
 display: grid;
@@ -50,13 +52,11 @@ grid-template-areas:
     "button1 button2 button3";
 grid-area: buttons;
 }
-
+button {font-size: 5rem;}
 .button1 { grid-area: button1; }
-
 .button2 { grid-area: button2; }
-
 .button3 { grid-area: button3; }
-  
+
 .bg {
     grid-area: 1 / 1 / 2 / 2;
     display: flex;
@@ -64,7 +64,4 @@ grid-area: buttons;
     align-items: center;
     height: 100vh;
 }
-body {font-size: 10rem;}
-button {font-size: 5rem;}
-#s { text-align: left; }
-#m { text-align: right; }
+

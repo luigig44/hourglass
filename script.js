@@ -29,6 +29,11 @@ function updateClock() {
   document.getElementById("sandInner").setAttribute("y",String(-110+110*(rem/time)));
 }
 
+function updateTime() {
+  document.getElementById("timeM").innerHTML = Math.floor(time/60000) + "m ";
+  document.getElementById("timeS").innerHTML = ((time%60000)/1000).toFixed(1) + "s ";
+}
+
 function turnHourglass() {
   rem = time-rem;
   if (rem < (Math.floor(time/100)*10)) {
@@ -56,23 +61,24 @@ function startHourglass() {
 };
 
 function startEdit() {
-  document.getElementById("m").setAttribute("contenteditable", "true");
-  document.getElementById("s").setAttribute("contenteditable", "true");
+  document.getElementById("timeM").setAttribute("contenteditable", "true");
+  document.getElementById("timeS").setAttribute("contenteditable", "true");
   document.getElementById("buttons").innerHTML = buttonSets["editing"];
 };
 
 function stopEdit() {
-  time =  parseFloat(document.getElementById("m").innerText) * 60000 +
-          parseFloat(document.getElementById("s").innerText) * 1000;
+  time =  parseFloat(document.getElementById("timeM").innerText) * 60000 +
+          parseFloat(document.getElementById("timeS").innerText) * 1000;
           console.log(time);
   if (isNaN(time) || time<100) {
     alert("Ingrese un tiempo válido");
     return;
   }
-  document.getElementById("m").setAttribute("contenteditable", "false");
-  document.getElementById("s").setAttribute("contenteditable", "false");
+  document.getElementById("timeM").setAttribute("contenteditable", "false");
+  document.getElementById("timeS").setAttribute("contenteditable", "false");
   document.getElementById("buttons").innerHTML = buttonSets["waiting"];
   rem = time;
+  updateTime();
   updateClock();
 }
 
@@ -88,6 +94,7 @@ function pauseHourglass() {
 function setupHourglass() {
   rem = time;
   document.getElementById("buttons").innerHTML = buttonSets["waiting"];
+  updateTime();
   updateClock();
   alarm.pause();
   alarm.currentTime = 0;
