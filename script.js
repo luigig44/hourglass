@@ -24,8 +24,8 @@ const buttonSets = {
 }
 
 function updateClock() {
-  document.getElementById("m").innerHTML = Math.floor(rem/60000) + "m ";
-  document.getElementById("s").innerHTML = ((rem%60000)/1000).toFixed(1) + "s ";
+  document.getElementById("m").innerHTML = Math.floor(rem/60000) + ":";
+  document.getElementById("s").innerHTML = ((rem%60000)/1000).toFixed(1).padStart(4,"0");
   document.getElementById("sandInner").setAttribute("y",String(-110+110*(rem/time)));
 }
 
@@ -36,12 +36,6 @@ function updateTime() {
 
 function turnHourglass() {
   rem = time-rem;
-  if (rem < (Math.floor(time/100)*10)) {
-    ticking.play();
-  } else {
-    ticking.pause();
-    ticking.currentTime = 0.4;
-  }
 };
 
 function startHourglass() {
@@ -49,10 +43,16 @@ function startHourglass() {
   updater = setInterval(function() {
     rem -= 100;
     updateClock();
-    if (rem == (Math.floor(time/100)*10)) ticking.play();
+    if (rem%1000 == 0 && rem < (Math.floor(time/100)*10)) {
+      ticking.play();
+    } else {
+      ticking.pause();
+      ticking.currentTime = 0.4;
+    }
     if (rem <= 0) {
       clearInterval(updater);
       ticking.pause();
+      ticking.currentTime = 0.4;
       alarm.play();
       navigator.vibrate(200);
       document.getElementById("buttons").innerHTML = buttonSets["ended"];
@@ -69,8 +69,9 @@ function startEdit() {
 };
 
 function stopEdit() {
-  time =  parseFloat(document.getElementById("timeM").innerText) * 60000 +
-          parseFloat(document.getElementById("timeS").innerText) * 1000;
+  time =  Math.round(parseFloat(document.getElementById("timeM").innerText) * 600 +
+                     parseFloat(document.getElementById("timeS").innerText) * 10)
+          * 100;
   if (isNaN(time) || time<100) {
     alert("Ingrese un tiempo válido");
     return;
@@ -91,6 +92,8 @@ function openInfo() {
 
 function pauseHourglass() {
   clearInterval(updater);
+  ticking.pause();
+  ticking.currentTime = 0.4;
   document.getElementById("buttons").innerHTML = buttonSets["waiting"];
 };
 

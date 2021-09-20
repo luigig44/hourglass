@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap');
+
 .container {
     display: grid;
     grid-template-columns: 1fr;
@@ -20,7 +22,7 @@
     grid-area: 1 / 1 / 2 / 2;
     opacity: 75%;
     background-color: #ffffff;
-    font-family: Ubuntu;
+    font-family: 'Slabo 27px', serif;
     height: 100vh;
 }
   
@@ -82,11 +84,3 @@ button {font-size: 5rem;}
         color:midnightblue;
     }
 }
-  /* @keyframes pulse-animation {
-    0% {
-      box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
-    }
-    100% {
-      box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
-    }
-  } */
