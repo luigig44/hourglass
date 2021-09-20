@@ -63,19 +63,22 @@ function startHourglass() {
 function startEdit() {
   document.getElementById("timeM").setAttribute("contenteditable", "true");
   document.getElementById("timeS").setAttribute("contenteditable", "true");
+  document.getElementById("timeM").classList.add("pulse");
+  document.getElementById("timeS").classList.add("pulse");
   document.getElementById("buttons").innerHTML = buttonSets["editing"];
 };
 
 function stopEdit() {
   time =  parseFloat(document.getElementById("timeM").innerText) * 60000 +
           parseFloat(document.getElementById("timeS").innerText) * 1000;
-          console.log(time);
   if (isNaN(time) || time<100) {
     alert("Ingrese un tiempo válido");
     return;
   }
   document.getElementById("timeM").setAttribute("contenteditable", "false");
   document.getElementById("timeS").setAttribute("contenteditable", "false");
+  document.getElementById("timeM").classList.remove("pulse");
+  document.getElementById("timeS").classList.remove("pulse");
   document.getElementById("buttons").innerHTML = buttonSets["waiting"];
   rem = time;
   updateTime();
