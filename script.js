@@ -1,7 +1,7 @@
 var time = 3 * 60000;
-var audio = new Audio('alarm.mp3');
-var rem = time;
-var updater;
+var alarm = new Audio('alarm.mp3');
+var ticking = new Audio('ticking.mp3');
+var rem, updater;
 
 const buttonSets = {
   "editing":' \
@@ -10,12 +10,16 @@ const buttonSets = {
   <button class="button-3" onClick="openInfo()" disabled><i class="icon-info"></i></button>',
   "running":' \
   <button class="button-1" onClick="pauseHourglass()"><i class="icon-pause"></i></button> \
-  <button class="button-2" onClick="turnHourglass()"><i class="icon-repeat"></i></button> \
+  <button class="button-2" onClick="turnHourglass()"><i class="icon-refresh"></i></button> \
   <button class="button-3" onClick="openInfo()"><i class="icon-info"></i></button>',
   "waiting":' \
   <button class="button-1" onClick="startHourglass()"><i class="icon-play"></i></button> \
   <button class="button-2" onClick="startEdit()"><i class="icon-edit"></i></button> \
-  <button class="button-3" onClick="openInfo()"><i class="icon-info"></i></button>'
+  <button class="button-3" onClick="openInfo()"><i class="icon-info"></i></button>',
+  "ended":' \
+  <button class="button-1" onClick="pauseHourglass()" disabled><i class="icon-pause"></i></button> \
+  <button class="button-2" onClick="setupHourglass()"><i class="icon-undo"></i></button> \
+  <button class="button-3" onClick="openInfo()" disabled><i class="icon-info"></i></button>'
 }
 
 function updateClock() {
@@ -26,6 +30,7 @@ function updateClock() {
 
 function turnHourglass() {
   rem = time-rem;
+  if (rem < (Math.floor(time/100)*10)) {ticking.play();}
 };
 
 function startHourglass() {
@@ -33,8 +38,13 @@ function startHourglass() {
   updater = setInterval(function() {
     rem -= 100;
     updateClock();
-    if (rem == 6300) audio.play();
-    if (rem < 0) clearInterval(updater);
+    if (rem == (Math.floor(time/100)*10)) ticking.play();
+    if (rem <= 0) {
+      clearInterval(updater);
+      ticking.pause();
+      alarm.play();
+      document.getElementById("buttons").innerHTML = buttonSets["ended"];
+    }
   }, 100);
 };
 
@@ -67,5 +77,13 @@ function pauseHourglass() {
   document.getElementById("buttons").innerHTML = buttonSets["waiting"];
 };
 
-document.getElementById("buttons").innerHTML = buttonSets["waiting"];
-updateClock();
+function setupHourglass() {
+  rem = time;
+  document.getElementById("buttons").innerHTML = buttonSets["waiting"];
+  updateClock();
+  alarm.pause();
+  alarm.currentTime = 0;
+  ticking.currentTime = 0.4;
+};
+
+setupHourglass();
