@@ -87,7 +87,7 @@ function stopEdit() {
 }
 
 function openInfo() {
-  document.location = "http://luigi.finetti.com.ar";
+  document.location = "https://github.com/luigig44/hourglass";
 };
 
 function pauseHourglass() {
